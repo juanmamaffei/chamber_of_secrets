@@ -1,5 +1,8 @@
-# README
+# README: Chamber of Secrets
 
+This application allows you to work collaboratively for managing passwords.
+
+You can test a [demo in Heroku](chamberofsecrets.herokuapp.com)
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

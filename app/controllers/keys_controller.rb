@@ -4,7 +4,32 @@ module Api
 
     class KeysController < ApplicationController
       def dashboard
-        render json: { status: 200 }
+        # Find my keys
+        own_keys = User.find(session[:user_id]).keys
+        
+        # Obatin all keys...
+        all_keys = Key.all
+        authorized_keys = {}
+
+        all_keys.each do |key|
+          key.authorized_users.each do | user_id |
+            if user_id.to_i == session[:user_id]
+              authorized_keys[key.id] = key
+            end
+          end
+        end
+        
+        if own_keys && authorized_keys
+          render json: {
+            status: 200,
+            own_keys: own_keys,
+            authorized_keys: authorized_keys
+          }
+        else
+          render json: { 
+            status: 500
+          }
+        end
       end
 
       def create

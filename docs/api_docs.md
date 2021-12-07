@@ -15,8 +15,8 @@
    7. Toggle admin
    8. Toggle authorized
    9. Change password (In progress)
-2. Password methods (Not created yet)
-    1. Dashboard
+2. Password methods
+    1. Dashboard (In progress)
     2. Create pass
     3. Edit pass
     4. Delete pass
@@ -121,9 +121,32 @@ Only an admin can toggle authorized.
 - Route: `/users/toggle_authorized/%id`
 - Method: `GET`
 - Params: `%user_id`
-- Action: `TOGGLE_ADMIN`
+- Action: `TOGGLE_AUTHORIZED`
 - Controller: `Users`
 - Expected response:
   - status: 200
 
 ## Passwords methods
+
+### 2.1 Dashboard
+
+Dashboard returns passwords created by the user and, in another object, authorized passwords data.
+
+- Route: `/dashboard`
+- Method: `GET`
+- Params: -
+- Action: `DASHBOARD`
+- Controller: `Keys`
+- Expected response:
+  - status: 200,
+  - own_keys:
+    - id
+    - title
+    - description (key)
+    - authorized_users
+    - expiration
+  - authorized_keys:
+    - id
+    - title
+    - description (key)
+    - expiration

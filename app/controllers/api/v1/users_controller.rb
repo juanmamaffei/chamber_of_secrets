@@ -72,6 +72,25 @@ module Api
         end
       end
       
+      def toggle_authorized
+        if User.find(session[:user_id]).admin?
+          new_authorized = User.find(params[:id])
+          action = new_authorized.update(
+            authrized: true
+          )
+          if action
+            render json: { status: 200, message: "Now, #{new_authorized.full_name} is authorized for create passwords."}
+          else
+            render json: { status: 500, meesage: error.details }
+          end
+        else
+          render json: { 
+            status: 401,
+            message: "You don't have permission to assign an admin."
+          }
+        end
+      end
+      
     end
   end
 end

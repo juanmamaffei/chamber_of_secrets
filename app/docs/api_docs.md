@@ -12,8 +12,8 @@
    4. Create user
    5. Edit account
    6. Delete User
-   7. Toggle admin (In progress)
-   8. Toggle authorized (In progress)
+   7. Toggle admin
+   8. Toggle authorized
    9. Change password (In progress)
 2. Password methods (Not created yet)
     1. Dashboard
@@ -113,5 +113,17 @@ Only an admin can toggle admins. The first admin must be defined by console.
 - Controller: `Users`
 - Expected response:
   - status: 200
-  
+
+### 1.8 Toggle authorized
+
+Only an admin can toggle authorized.
+
+- Route: `/users/toggle_authorized/%id`
+- Method: `GET`
+- Params: `%user_id`
+- Action: `TOGGLE_ADMIN`
+- Controller: `Users`
+- Expected response:
+  - status: 200
+
 ## Passwords methods

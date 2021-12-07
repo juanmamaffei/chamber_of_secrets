@@ -53,6 +53,25 @@ module Api
         end
       end
       
+      def toggle_admin
+        if User.find(session[:user_id]).admin?
+          new_admin = User.find(params[:id])
+          action = new_admin.update(
+            admin: true
+          )
+          if action
+            render json: { status: 200, message: "Now, #{new_admin.full_name} is an admin."}
+          else
+            render json: { status: 500, message: error.details }
+          end
+        else
+          render json: { 
+            status: 401,
+            message: "You don't have permission to assign an admin."
+          }
+        end
+      end
+      
     end
   end
 end

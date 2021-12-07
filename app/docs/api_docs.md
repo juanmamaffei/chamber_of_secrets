@@ -10,8 +10,8 @@
    2. Logged in session
    3. Logout
    4. Create user
-   5. Edit account (In progress)
-   6. Delete User (In progress)
+   5. Edit account
+   6. Delete User
    7. Toggle admin (In progress)
    8. Toggle authorized (In progress)
    9. Change password (In progress)
@@ -102,4 +102,16 @@
   - status: 200
   - destroy_user: true
 
+### 1.7 Toggle admin
+
+Only an admin can toggle admins. The first admin must be defined by console.
+
+- Route: `/users/toggle_admin/%id`
+- Method: `GET`
+- Params: `%user_id`
+- Action: `TOGGLE_ADMIN`
+- Controller: `Users`
+- Expected response:
+  - status: 200
+  
 ## Passwords methods

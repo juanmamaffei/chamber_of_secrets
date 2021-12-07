@@ -36,6 +36,23 @@ module Api
         end
       end
       
+      def destroy
+        user = User.find(session[:user_id]).destroy
+        reset_session
+
+        if user
+          render json: {
+            status: 200,
+            destroy_user: true
+          }
+        else
+          render json: {
+            status: 500,
+            details: error.details
+          }
+        end
+      end
+      
     end
   end
 end

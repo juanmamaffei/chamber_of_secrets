@@ -91,7 +91,7 @@
 - Action: `UPDATE`
 - Controller: `Users`
 
-### 1.6 Delete user *PENDING*
+### 1.6 Delete user
 
 - Route: `/users/%id`
 - Method: `DELETE`

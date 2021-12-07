@@ -3,6 +3,24 @@
 - *Base URL:* `/api/v1`
 - *Base Header:* `Content-Type: application/json`
 
+## Table of contents
+
+1. Authentication methods
+   1. Login
+   2. Logged in session
+   3. Logout
+   4. Create user
+   5. Edit account (In progress)
+   6. Delete User (In progress)
+   7. Toggle admin (In progress)
+   8. Toggle authorized (In progress)
+   9. Change password (In progress)
+2. Password methods (Not created yet)
+    1. Dashboard
+    2. Create pass
+    3. Edit pass
+    4. Delete pass
+
 ## 1. Authentication methods
 
 ### 1.1 Login
@@ -18,7 +36,7 @@
 - Expected response:
   - status: "created"
   - logged_in: true
-  - user: {user data}
+  - user: { user data }
   
 ### 1.2 Logged in session
 
@@ -59,10 +77,10 @@
     - status: "created"
     - user: { user data }
 
-### 1.5 Edit account *PENDING*
+### 1.5 Edit account
 
-- Route: `/users/%id/edit`
-- Method: `PATCH`
+- Route: `/users/%id`
+- Method: `PATCH` | [More info...](https://www.bbvanexttechnologies.com/blogs/como-utilizar-los-metodos-put-y-patch-en-el-diseno-de-tus-apis-restful/)
 - Params:
   - user:
     - role
@@ -73,7 +91,7 @@
 - Action: `UPDATE`
 - Controller: `Users`
 
-### 1.5 Delete user *PENDING*
+### 1.6 Delete user *PENDING*
 
 - Route: `/users/%id`
 - Method: `DELETE`

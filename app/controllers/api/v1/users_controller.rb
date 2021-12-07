@@ -19,6 +19,23 @@ module Api
         end
       end
       
+      def update
+ 
+        user = User.find(session[:user_id]).update(
+          role: params['user']['role'],
+          full_name: params['user']['full_name']
+        )
+
+        if user
+          render json: {
+            status: :updated,
+            user: user
+          }
+        else
+          render json: { status: 500, details: error.details }
+        end
+      end
+      
     end
   end
 end

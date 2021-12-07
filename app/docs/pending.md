@@ -8,3 +8,4 @@
 - Test user:
   - Email: juanma@a.com
   - Password: 12346578
+  - Other passwords: 123456

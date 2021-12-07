@@ -15,17 +15,16 @@ module Api
             user: user
           }
         else
-          render json: { status: 401 }
+          render json: { status: 401, message: "User or password incorrect." }
         end
 
-        
       end
 
       def logged_in
         if @current_user
           render json: {
             logged_in: true,
-            user: user
+            user: @current_user
           }
         else
           render json: {
@@ -41,7 +40,6 @@ module Api
           logged_out: true
         }    
       end
-      
       
     end
   end

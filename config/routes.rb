@@ -10,8 +10,8 @@ Rails.application.routes.draw do
       get :toggle_admin, to: "users#toggle_admin"
       get :toggle_authorized, to: "users#toggle_authorized"
 
-      resources :passwords, only: [:create, :update, :destroy]
-      get :dashboard, to: "passwords#dashboard"
+      resources :keys, only: [:create, :update, :destroy]
+      get :dashboard, to: "keys#dashboard"
     end
   end
   

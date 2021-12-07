@@ -2,6 +2,7 @@
 
 - Change localhost by environment variables in iniatializers (cors and session).
 - Add validations in User model.
+- Repair @current_user in all controllers.
 
 ## Things to delevop environment
 

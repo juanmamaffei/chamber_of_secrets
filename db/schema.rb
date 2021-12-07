@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_162626) do
+ActiveRecord::Schema.define(version: 2021_12_07_165822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "passwords", force: :cascade do |t|
+  create_table "keys", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.bigint "user_id", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2021_12_07_162626) do
     t.date "expiration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_passwords_on_user_id"
+    t.index ["user_id"], name: "index_keys_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,5 +37,5 @@ ActiveRecord::Schema.define(version: 2021_12_07_162626) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "passwords", "users"
+  add_foreign_key "keys", "users"
 end

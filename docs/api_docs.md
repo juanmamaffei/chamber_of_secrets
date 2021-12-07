@@ -16,7 +16,7 @@
    8. Toggle authorized
    9. Change password (In progress)
 2. Password methods
-    1. Dashboard (In progress)
+    1. Dashboard
     2. Create pass
     3. Edit pass
     4. Delete pass

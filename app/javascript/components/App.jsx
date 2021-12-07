@@ -1,14 +1,15 @@
 import React from 'react'
-import Container from 'react-bootstrap/Container'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Index from './Index'
+import Login from './Session/Login'
 
 const App = () => (
-    <Container fluid>
-        <Row><Col>Title</Col></Row>
-        <Row><Col>Content</Col></Row>
-    </Container>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={ <Index /> } />
+            <Route path="/web/login" element={ <Login /> } />
+        </Routes>
+    </BrowserRouter>
 )
 
 export default App

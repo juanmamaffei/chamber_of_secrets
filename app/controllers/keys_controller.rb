@@ -9,7 +9,7 @@ module Api
         
         # Obatin all keys...
         all_keys = Key.all
-        authorized_keys = {}
+        authorized_keys = []
 
         all_keys.each do |key|
           key.authorized_users.each do | user_id |

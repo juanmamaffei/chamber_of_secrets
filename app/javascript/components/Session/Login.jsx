@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'
 import axios from 'axios'
-import { useNavigate, Redirect } from 'react-router-dom'
-
+import { useNavigate, Link } from 'react-router-dom'
+import isLoggedIn from './CheckLogin'
 
 const LoginForm = (props) => (
     <Form onSubmit={ props.handleSubmit }>
@@ -38,7 +38,7 @@ const Messages = (props) => {
     )
 }
 
-const Login = (props) => {
+function Login (props) {
     let navigate = useNavigate()
 
     const [credentials, setCredentials] = useState({ email: "", password: "" })
@@ -46,6 +46,8 @@ const Login = (props) => {
     const handleChange = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
+    const [loggedIn, setLoggedIn] = useState(false)
+    
     const handleSubmit = (event) => {
 
         event.preventDefault()
@@ -72,6 +74,12 @@ const Login = (props) => {
             })
 
     }
+    
+    useEffect(()=>{        
+        setLoggedIn((isLoggedIn()));
+
+    },[10])
+   
     return (
         <Container>
             {alerts.show && <Row><Messages variant={alerts.variant} message={alerts.message} /></Row>}
@@ -79,7 +87,7 @@ const Login = (props) => {
                 <h2>Login</h2>
             </Row>
             <Row>
-                <Col><LoginForm handleChange={handleChange} handleSubmit={handleSubmit} /></Col>
+                <Col><LoginForm handleChange={handleChange} handleSubmit={handleSubmit} loggedIn={loggedIn}/></Col>
             </Row>
         </Container>
     )

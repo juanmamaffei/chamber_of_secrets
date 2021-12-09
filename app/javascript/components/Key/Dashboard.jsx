@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-
+import { useNavigate, Link } from 'react-router-dom'
+import isLoggedIn from '../Session/CheckLogin'
 
 const Dashboard = ()=>{
-    const [loggedIn, setLoggedIn] = useState(false);
     const [ownKeys, setOwnKeys] = useState([]);
     const [authorizedKeys, setAuthorizedKeys] = useState([]);
+    const loggedIn = isLoggedIn()
+
+    let navigate = useNavigate()
 
     const destroySession = () => (
         axios.delete('/api/v1/logout').then(response =>
-            setLoggedIn(false)
+            navigate('/')
         ).catch(response =>
             console.log(response)
         ))
@@ -24,12 +26,6 @@ const Dashboard = ()=>{
                 setAuthorizedKeys(response.data.authorized_keys);
             })
             .catch(response => console.log(response))
-    
-        // Check if user is logged in
-        axios.get("/api/v1/logged_in")
-            .then(r=> setLoggedIn(Boolean(r.data.logged_in)))
-            .catch(r=> console.log(r))
-    
     },[authorizedKeys.length+ownKeys.length])
     
     
@@ -43,7 +39,6 @@ const Dashboard = ()=>{
             return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.</li> : <li>Null </li>
             
         })
-        console.log(authorizedKeysList)
         return(
             <Container>
         <Row>

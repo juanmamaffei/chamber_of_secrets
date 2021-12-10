@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row, Button } from 'react-bootstrap'
+import { Container, Col, Row, Button, Alert } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import isLoggedIn from '../Session/CheckLogin'
@@ -13,6 +13,13 @@ const Dashboard = ()=>{
     const [edit, setEdit] = useState(false);
     const [elementForEdit, setElementForEdit] = useState({id: 0, title: "", description: "", expiration: "", authorized_users: []});
 
+    const [alerts, setAlerts] = useState({ variant: "", message: "", show: false })
+    
+    const Messages = (p) => {
+        return(
+            <Alert variant={ p.variant || "warning" }>{ p.message || "Done" }</Alert>
+        )
+    }
 
     //actions for bootstrap modal
     const [show, setShow] = useState(false);
@@ -26,12 +33,25 @@ const Dashboard = ()=>{
         setEdit(true);
         setShow(true);
     }
+    const handleDelete = (e) => {
+        // console.log(e)
+        axios.delete(`/api/v1/keys/${e}`)
+            .then(
+                r => {
+                    setAlerts({variant: "warning", message: r.data.message, show: true});
+                    
+                    setOwnKeys(ownKeys.filter(item=>item.id !== e));
+                }
+            )
+            .catch(r=>console.log(r));
+    }
     let navigate = useNavigate()
 
     const destroySession = () => (
         axios.delete('/api/v1/logout').then(response =>
             navigate('/')
         ).catch(response =>
+            
             console.log(response)
         ))
     useEffect(()=>{
@@ -49,8 +69,8 @@ const Dashboard = ()=>{
         const ownKeysList = ownKeys.map((element, index) => 
             {
                 return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.| ID: { element.id }
-                <Button variant="secondary" onClick={ ()=> { setElementForEdit(element); handleEdit(element)} }>Edit</Button> | 
-                <Button variant="secondary" onClick={ handleNew }>Delete</Button>
+                <Button variant="secondary" onClick={ () => { setElementForEdit(element); handleEdit(element)} }>Edit</Button> | 
+                <Button variant="secondary" onClick={ () => handleDelete(element.id) }>Delete</Button>
                 
                  </li> : ""
             })
@@ -63,6 +83,7 @@ const Dashboard = ()=>{
 
         return(
             <Container>
+                {alerts.show && <Row><Messages variant={alerts.variant} message={alerts.message} /></Row>}
         <Row>
             <Col>Logo</Col>
             <Col>Session menu

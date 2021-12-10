@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, Button, Form, Accordion } from 'react-bootstrap'
 import axios from 'axios'
+import NewAuthorized from './NewAuthorized'
+
 
 const NewKeyForm = (props) => {
     let element= {}
@@ -23,36 +25,17 @@ const NewKeyForm = (props) => {
         <Form.Group>
             <Form.Label>Share pass with...</Form.Label>
 
-            <Accordion>
-                <Accordion.Item>
-                    <Form.Control type="email" placeholder="Enter user's email" />
-                    <Form.Text className="text-muted">Find here the people with whom you want to share your key.</Form.Text>
-                    {['a@b.com','a@b.com','a@b.com','a@b.com'].map((e,i) => (
-                        <div key={`1${i}`} className="mb-3">
-                        <Form.Check 
-                            type='checkbox'
-                            id={`2${i}`}
-                            label={`3${i}`}
-                        />
-                        </div>
-                    ))}
-                    <Accordion>
-                        <Accordion.Item>
-                            <Accordion.Header>Shared with...</Accordion.Header>
-                            <Accordion.Body>
-                                email 1, email 2, email 3
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </Accordion.Item>
-            </Accordion>
+
+                <NewAuthorized />
+
+            
         </Form.Group>
         <Form.Group>
             <Form.Label>Expiration</Form.Label>
             <Form.Control name="expiration" type="date" defaultValue={ element.expiration } placeholder="Your pass expires..." onChange={ props.handleChange } ></Form.Control>
         </Form.Group>
         <Form.Group>
-            <Button type="submit">Create</Button>
+            <Button type="submit">{props.edit? "Update" : "Create" }</Button>
         </Form.Group>
     </Form>
     )}
@@ -125,7 +108,8 @@ const NewKey = (props) => {
             handleChange={ handleChange }
             handleSubmit= { handleSubmit }
             element={ props.element }
-            id={ props.element.id } /> 
+            id={ props.element.id }
+            edit={ props.edit } /> 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>

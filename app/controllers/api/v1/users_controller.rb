@@ -19,6 +19,18 @@ module Api
         end
       end
       
+      def query
+        users = User.where('email LIKE ?', "%#{params['user']['query']}%")
+        if users
+          render json: {
+            status: 200,
+            users: users
+          }
+        else
+          render json: { status: 500, details: error.details }
+        end
+      end
+      
       def update
  
         user = User.find(session[:user_id]).update(

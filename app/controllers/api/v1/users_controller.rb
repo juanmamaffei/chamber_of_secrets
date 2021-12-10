@@ -20,7 +20,7 @@ module Api
       end
       
       def query
-        users = User.where('email LIKE ?', "%#{params['user']['query']}%")
+        users = User.where('email LIKE ?', "%#{params['user']['query']}%").limit(5)
         if users
           render json: {
             status: 200,

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :update, :destroy]
       get :toggle_admin, to: "users#toggle_admin"
       get :toggle_authorized, to: "users#toggle_authorized"
-      get :query, to: "users#query"
+      post :query, to: "users#query"
 
       resources :keys, only: [:create, :update, :destroy]
       get :dashboard, to: "keys#dashboard"

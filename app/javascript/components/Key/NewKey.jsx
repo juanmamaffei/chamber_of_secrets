@@ -15,24 +15,20 @@ const NewKeyForm = (props) => {
       <Form onSubmit={ props.handleSubmit }>
         <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type="text" placeholder="Enter title of key" onChange={ props.handleChange } name='title' defaultValue={ element.title } />
+            <Form.Control type="text" placeholder="Enter title of key" onChange={ props.handleChange } name='title' defaultValue={ element.title } autoComplete="off" />
             <Form.Text className="text-muted">For example: Wifi key of Office 2.</Form.Text>
         </Form.Group>
         <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } />
-        </Form.Group>
-        <Form.Group>
-            <Form.Label>Share pass with...</Form.Label>
-
-
-                <NewAuthorized />
-
-            
+            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } autoComplete="off" />
         </Form.Group>
         <Form.Group>
             <Form.Label>Expiration</Form.Label>
             <Form.Control name="expiration" type="date" defaultValue={ element.expiration } placeholder="Your pass expires..." onChange={ props.handleChange } ></Form.Control>
+        </Form.Group>
+        <Form.Group>
+            <Form.Label>Share pass with...</Form.Label>
+                <NewAuthorized />
         </Form.Group>
         <Form.Group>
             <Button type="submit">{props.edit? "Update" : "Create" }</Button>

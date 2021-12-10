@@ -3,16 +3,22 @@ import { Modal, Button, Form, Accordion } from 'react-bootstrap'
 import axios from 'axios'
 
 const NewKeyForm = (props) => {
+    let element= {}
+    if(props.element){
+        element = props.element
+    } else {
+        element = {title: '', description: '', expiration: ''}
+    }
     return (
       <Form onSubmit={ props.handleSubmit }>
         <Form.Group>
             <Form.Label>Title</Form.Label>
-            <Form.Control type="text" placeholder="Enter title of key" onChange={ props.handleChange } name='title' />
+            <Form.Control type="text" placeholder="Enter title of key" onChange={ props.handleChange } name='title' defaultValue={ element.title } />
             <Form.Text className="text-muted">For example: Wifi key of Office 2.</Form.Text>
         </Form.Group>
         <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' />
+            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } />
         </Form.Group>
         <Form.Group>
             <Form.Label>Share pass with...</Form.Label>
@@ -43,7 +49,7 @@ const NewKeyForm = (props) => {
         </Form.Group>
         <Form.Group>
             <Form.Label>Expiration</Form.Label>
-            <Form.Control name="expiration" type="date" placeholder="Your pass expires..." onChange={ props.handleChange } ></Form.Control>
+            <Form.Control name="expiration" type="date" defaultValue={ element.expiration } placeholder="Your pass expires..." onChange={ props.handleChange } ></Form.Control>
         </Form.Group>
         <Form.Group>
             <Button type="submit">Create</Button>
@@ -59,6 +65,7 @@ const NewKey = (props) => {
 
     const handleChange = (event) => {
         event.preventDefault();
+
         setFields(Object.assign({},fields,{[event.target.name]:event.target.value}));
         
         // console.log(fields)
@@ -66,35 +73,59 @@ const NewKey = (props) => {
     useEffect(()=>{
         
     },[1])
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('/api/v1/keys', {
-            title: fields.title,
-            description: fields.description,
-            expiration: fields.expiration,
-            authorized_users: "[]"
-        })
-            .then(
-                r=> {
-                    props.setOwnKeys([...props.ownKeys, r.data.key]);
-            )
-            .catch(
-                r=> { console.log(r); console.log("NOT OK")}
+        if(props.edit){
+            axios.patch(`/api/v1/keys/${props.element.id}`, {
+                id: props.element.id,
+                title: fields.title,
+                description: fields.description,
+                expiration: fields.expiration,
+                authorized_users: "[]"
+            })
+                .then(
+                    r=> {
+                        props.setOwnKeys([...props.ownKeys, r.data.key]);
+                        // console.log(r); console.log("OK")
+                    }
+                )
+                .catch(
+                    r=> { console.log(r); console.log("NOT OK")}
 
-            )
+                )
+        }else{
+            axios.post('/api/v1/keys', {
+                title: fields.title,
+                description: fields.description,
+                expiration: fields.expiration,
+                authorized_users: "[]"
+            })
+                .then(
+                    r=> {
+                        props.setOwnKeys([...props.ownKeys, r.data.key]);
+                        // console.log(r); console.log("OK")
+                    }
+                )
+                .catch(
+                    r=> { console.log(r); console.log("NOT OK")}
+
+                )
+            }
         // Close modal
         props.handleClose();
     }
-    
     return (
         <Modal show={props.show} onHide={props.handleClose} fullscreen={ true }>
         <Modal.Header closeButton>
-          <Modal.Title>Create new password</Modal.Title>
+          <Modal.Title>{ props.edit? 'Edit': 'Create new' } password</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-           <NewKeyForm handleChange={ handleChange } handleSubmit= { handleSubmit } /> 
+           <NewKeyForm
+            handleChange={ handleChange }
+            handleSubmit= { handleSubmit }
+            element={ props.element }
+            id={ props.element.id } /> 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>

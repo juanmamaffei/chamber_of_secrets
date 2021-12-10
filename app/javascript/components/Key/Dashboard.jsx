@@ -9,13 +9,23 @@ const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
     const [authorizedKeys, setAuthorizedKeys] = useState([]);
     const loggedIn = isLoggedIn()
+    
+    const [edit, setEdit] = useState(false);
+    const [elementForEdit, setElementForEdit] = useState({id: 0, title: "", description: "", expiration: "", authorized_users: []});
 
 
     //actions for bootstrap modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const handleNew = () => {
+        setElementForEdit({})
+        setEdit(false)
+        setShow(true);
+    };
+    const handleEdit = (e) => {
+        setEdit(true);
+        setShow(true);
+    }
     let navigate = useNavigate()
 
     const destroySession = () => (
@@ -25,8 +35,6 @@ const Dashboard = ()=>{
             console.log(response)
         ))
     useEffect(()=>{
-        console.log(ownKeys);
-        
         // Get the keys and store them in the state
         axios.get('/api/v1/dashboard')
             .then(response => {
@@ -40,13 +48,19 @@ const Dashboard = ()=>{
     if(loggedIn){
         const ownKeysList = ownKeys.map((element, index) => 
             {
-                return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.</li> : <li>Null </li>
+                return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.| ID: { element.id }
+                <Button variant="secondary" onClick={ ()=> { setElementForEdit(element); handleEdit(element)} }>Edit</Button> | 
+                <Button variant="secondary" onClick={ handleNew }>Delete</Button>
+                
+                 </li> : ""
             })
     
         const authorizedKeysList = authorizedKeys.map((element, index) => {
-            return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.</li> : <li>Null </li>
+            return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.</li> : ""
             
         })
+
+
         return(
             <Container>
         <Row>
@@ -60,8 +74,7 @@ const Dashboard = ()=>{
             <Col>
                 <h2>Own passwords</h2>
                 <ul>
-                    { ownKeysList
-                    }
+                    { ownKeysList }
                 </ul>
             </Col>
         </Row>
@@ -75,12 +88,15 @@ const Dashboard = ()=>{
         </Row>
         <Row>
             <Col>
-                <Button variant="primary" onClick={ handleShow }>New password</Button>
+                <Button variant="primary" onClick={ handleNew }>New password</Button>
                 <NewKey show={ show }
-                    handleShow={ handleShow }
+                    // handleShow={ handleShow }
                     handleClose={ handleClose }
                     setOwnKeys={ setOwnKeys }
-                    ownKeys={ ownKeys } />
+                    ownKeys={ ownKeys } 
+                    edit={ edit }
+                    element={ elementForEdit }
+                    />
             </Col>
         </Row>
 

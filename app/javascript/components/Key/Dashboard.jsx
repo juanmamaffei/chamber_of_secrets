@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container, Col, Row, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import isLoggedIn from '../Session/CheckLogin'
+import NewKey from './NewKey'
 
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
     const [authorizedKeys, setAuthorizedKeys] = useState([]);
     const loggedIn = isLoggedIn()
+
+
+    //actions for bootstrap modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     let navigate = useNavigate()
 
@@ -18,6 +25,7 @@ const Dashboard = ()=>{
             console.log(response)
         ))
     useEffect(()=>{
+        console.log(ownKeys);
         
         // Get the keys and store them in the state
         axios.get('/api/v1/dashboard')
@@ -26,7 +34,7 @@ const Dashboard = ()=>{
                 setAuthorizedKeys(response.data.authorized_keys);
             })
             .catch(response => console.log(response))
-    },[authorizedKeys.length+ownKeys.length])
+    },[authorizedKeys.length + ownKeys.length + 1])
     
     
     if(loggedIn){
@@ -67,7 +75,12 @@ const Dashboard = ()=>{
         </Row>
         <Row>
             <Col>
-                <button>New password</button>
+                <Button variant="primary" onClick={ handleShow }>New password</Button>
+                <NewKey show={ show }
+                    handleShow={ handleShow }
+                    handleClose={ handleClose }
+                    setOwnKeys={ setOwnKeys }
+                    ownKeys={ ownKeys } />
             </Col>
         </Row>
 

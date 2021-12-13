@@ -9,7 +9,7 @@ const NewKeyForm = (props) => {
     if(props.element){
         element = props.element
     } else {
-        element = {title: '', description: '', expiration: ''}
+        element = {title: '', description: '', expiration: '', authorized_users: []}
     }
     return (
       <Form onSubmit={ props.handleSubmit }>
@@ -28,7 +28,10 @@ const NewKeyForm = (props) => {
         </Form.Group>
         <Form.Group>
             <Form.Label>Share pass with...</Form.Label>
-                <NewAuthorized />
+                <NewAuthorized 
+                    authorized={ props.authorized }
+                    setAuthorized={ props.setAuthorized }
+                />
         </Form.Group>
         <Form.Group>
             <Button type="submit">{props.edit? "Update" : "Create" }</Button>
@@ -78,7 +81,7 @@ const NewKey = (props) => {
                 title: fields.title,
                 description: fields.description,
                 expiration: fields.expiration,
-                authorized_users: "[]"
+                authorized_users: authorized
             })
                 .then(
                     r=> {
@@ -105,7 +108,9 @@ const NewKey = (props) => {
             handleSubmit= { handleSubmit }
             element={ props.element }
             id={ props.element.id }
-            edit={ props.edit } /> 
+            edit={ props.edit } 
+            authorized={ authorized }
+            setAuthorized={setAuthorized} /> 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>

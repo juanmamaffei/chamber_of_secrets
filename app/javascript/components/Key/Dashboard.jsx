@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import isLoggedIn from '../Session/CheckLogin'
 import NewKey from './NewKey'
+import OwnKey from './OwnKey'
 
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
@@ -62,17 +63,16 @@ const Dashboard = ()=>{
                 setAuthorizedKeys(response.data.authorized_keys);
             })
             .catch(response => console.log(response))
-    },[authorizedKeys.length + ownKeys.length + 1])
+    },[])
     
     
     if(loggedIn){
         const ownKeysList = ownKeys.map((element, index) => 
             {
-                return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.| ID: { element.id }
-                <Button variant="secondary" onClick={ () => { setElementForEdit(element); handleEdit(element)} }>Edit</Button> | 
-                <Button variant="secondary" onClick={ () => handleDelete(element.id) }>Delete</Button>
-                
-                 </li> : ""
+                return element ? <OwnKey element={ element } key={ index }
+                setElementForEdit={setElementForEdit} handleEdit={handleEdit} handleDelete={handleDelete}
+
+                /> : ""
             })
     
         const authorizedKeysList = authorizedKeys.map((element, index) => {

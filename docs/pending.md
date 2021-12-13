@@ -8,6 +8,8 @@
 - Repair a bug... in dashboard, sometimes the keys not loading. When refreshing, all works fine.
 - Keep record users#query in docs.
 - Select only email and id in users#query.
+- Password history.
+- Password generator.
 
 ## Things to delevop environment
 

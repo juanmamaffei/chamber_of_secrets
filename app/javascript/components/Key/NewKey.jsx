@@ -20,7 +20,7 @@ const NewKeyForm = (props) => {
         </Form.Group>
         <Form.Group>
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } autoComplete="off" />
+            <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } autoComplete="new-password" />
         </Form.Group>
         <Form.Group>
             <Form.Label>Expiration</Form.Label>

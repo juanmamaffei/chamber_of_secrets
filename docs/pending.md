@@ -12,6 +12,7 @@
 - Password generator.
 - Authorized user only can read passwords.
 - Updating passwords doesn't refresh but create new item (only in frontend). When refreshing page, all works fine.
+- Update is a mess... when you introduce one param, another is missing. That it's because the state is not refreshed if you don't change something.
 - Confirmation messages in cancel new password and delete password.
 
 ## Things to delevop environment

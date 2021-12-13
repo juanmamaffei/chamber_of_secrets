@@ -76,9 +76,12 @@ function Login (props) {
     }
     
     useEffect(()=>{        
-        setLoggedIn((isLoggedIn()));
-
-    },[10])
+        axios.get("/api/v1/logged_in")
+            .then(r=> { setLoggedIn(Boolean(r.data.logged_in));
+            })
+            .catch(r=> {console.log(r); setLoggedIn(r)})
+        
+    },[])
    
     return (
         <Container>
@@ -87,7 +90,11 @@ function Login (props) {
                 <h2>Login</h2>
             </Row>
             <Row>
-                <Col><LoginForm handleChange={handleChange} handleSubmit={handleSubmit} loggedIn={loggedIn}/></Col>
+                <Col>
+                    {loggedIn? navigate("/web/dashboard") : <LoginForm handleChange={ handleChange }
+                        handleSubmit={handleSubmit}
+                        loggedIn={loggedIn}/>}
+                </Col>
             </Row>
         </Container>
     )

@@ -10,6 +10,9 @@
 - Select only email and id in users#query.
 - Password history.
 - Password generator.
+- Authorized user only can read passwords.
+- Updating passwords doesn't refresh but create new item (only in frontend). When refreshing page, all works fine.
+- Confirmation messages in cancel new password and delete password.
 
 ## Things to delevop environment
 

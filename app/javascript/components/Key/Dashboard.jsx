@@ -5,6 +5,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import isLoggedIn from '../Session/CheckLogin'
 import NewKey from './NewKey'
 import OwnKey from './OwnKey'
+import SharedKey from './SharedKey'
 
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
@@ -76,7 +77,10 @@ const Dashboard = ()=>{
             })
     
         const authorizedKeysList = authorizedKeys.map((element, index) => {
-            return element ? <li key={ index }>Title: { element.title }, Key: { element.description } | Other { element.authorized_users.length } authorized.</li> : ""
+            return element ? <SharedKey element={ element } key={ index }
+            setElementForEdit={setElementForEdit} handleEdit={handleEdit} handleDelete={handleDelete}
+
+            /> : ""
             
         })
 
@@ -92,24 +96,16 @@ const Dashboard = ()=>{
             </Col>
         </Row>
         <Row>
-            <Col>
                 <h2>Own passwords</h2>
-                <ul>
-                    { ownKeysList }
-                </ul>
-            </Col>
+                { ownKeysList }
         </Row>
         <Row>
-            <Col>
                 <h2>Shared passwords</h2>
-                <ul>
                     { authorizedKeysList }
-                </ul>
-            </Col>
         </Row>
         <Row>
-            <Col>
-                <Button variant="primary" onClick={ handleNew }>New password</Button>
+            <Col className="text-end">
+                <Button variant="success" size="lg" onClick={ handleNew }>New password</Button>
                 <NewKey show={ show }
                     // handleShow={ handleShow }
                     handleClose={ handleClose }

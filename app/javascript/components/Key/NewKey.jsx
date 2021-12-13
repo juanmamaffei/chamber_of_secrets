@@ -5,9 +5,34 @@ import NewAuthorized from './NewAuthorized'
 
 
 const NewKeyForm = (props) => {
+    const [authorizedUsers, setAuthorizedUsers] = useState([]);
     let element= {}
-    if(props.element){
+    if(props.element.description){
         element = props.element
+        useEffect(() => {
+            props.setFields({title: element.title, description: element.description, expiration: element.expiration});
+
+            props.setAuthorized(element.authorized_users)
+            // element.authorized_users contains id users... is necessary obtain data from this ids:
+
+            for (let index = 0; index < element.authorized_users.length; index++) {
+                
+                axios.post('/api/v1/query',
+                {
+                    "user": {
+                        "query": element.authorized_users[index],
+                        "byid": true
+                    }
+                })
+                .then(
+                    r => { setAuthorizedUsers(authorizedUsers.push(r.data.users))}
+                    )
+                    .catch(r=>console.log(r));
+                }
+               
+
+        }, [])
+        
     } else {
         element = {title: '', description: '', expiration: '', authorized_users: []}
     }
@@ -31,6 +56,7 @@ const NewKeyForm = (props) => {
                 <NewAuthorized 
                     authorized={ props.authorized }
                     setAuthorized={ props.setAuthorized }
+                    authorizedUsers={ authorizedUsers }
                 />
         </Form.Group>
         <Form.Group>
@@ -50,11 +76,10 @@ const NewKey = (props) => {
 
         setFields(Object.assign({},fields,{[event.target.name]:event.target.value}));
         
-        // console.log(fields)
+        //console.log(fields, authorized)
+
     }
-    useEffect(()=>{
-        
-    },[1])
+    
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -64,10 +89,15 @@ const NewKey = (props) => {
                 title: fields.title,
                 description: fields.description,
                 expiration: fields.expiration,
-                authorized_users: "[]"
+                authorized_users: authorized
             })
                 .then(
                     r=> {
+                        props.setOwnKeys(props.ownKeys.filter((i)=>{
+                            console.log(i.id !== r.data.key.id);
+                            return i.id !== r.data.key.id
+                        }));
+
                         props.setOwnKeys([...props.ownKeys, r.data.key]);
                         // console.log(r); console.log("OK")
                     }
@@ -110,7 +140,8 @@ const NewKey = (props) => {
             id={ props.element.id }
             edit={ props.edit } 
             authorized={ authorized }
-            setAuthorized={setAuthorized} /> 
+            setAuthorized={ setAuthorized }
+            setFields={ setFields } /> 
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>

@@ -77,10 +77,7 @@ const Dashboard = ()=>{
             })
     
         const authorizedKeysList = authorizedKeys.map((element, index) => {
-            return element ? <SharedKey element={ element } key={ index }
-            setElementForEdit={setElementForEdit} handleEdit={handleEdit} handleDelete={handleDelete}
-
-            /> : ""
+            return element ? <SharedKey element={ element } key={ index } /> : ""
             
         })
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Accordion, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 
@@ -7,6 +7,10 @@ const NewAuthorized = (props) => {
   const [query, setQuery] = useState([]);
   const [selected, setSelected] = useState([]);
 
+  useEffect(() => {
+    setSelected(props.authorizedUsers)
+    props.setAuthorized(props.authorizedUsers)
+  }, [])
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -25,19 +29,22 @@ const NewAuthorized = (props) => {
   const handleSelect = (data) => {
     //setSelected(...selected, data.id);
     // In data, we have an array... 0 is ID, 1 is EMAIL
+    console.log(props.authorized)
     setSelected([...selected,{id:data[0].id,email:data[0].email}]);
     props.setAuthorized([...props.authorized,data[0].id]);
   }
 
   return (<Accordion>
     <Accordion.Item>
-      <Form.Control type="email" placeholder="Enter user's email" onChange={ handleChange } 
+      <Form.Control placeholder="Enter user's email" onChange={ handleChange } 
           autoComplete='false'
           />
       <Form.Text className="text-muted">Find here the people with whom you want to share your key.</Form.Text>
       {query.map((e,i) => (
         <div key={ i } className="mb-3">
-            <Button variant="link" onClick={ () => {handleSelect([e]); console.log(selected)} } id={ e.id }>{ e.email }</Button>
+            <Button variant="link" onClick={ () => {
+              handleSelect([e]);
+              } } id={ e.id }>{ e.email }</Button>
         </div>
     ))}
       <Accordion>

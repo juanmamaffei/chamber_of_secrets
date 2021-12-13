@@ -9,6 +9,8 @@ const PassWrapper = styled.span`
     border: 1px solid black;
     border-radius: 3px;
     padding: 3px 10px;
+    margin-left: 5px;
+    padding-bottom: 8px;
 `
 
 const OwnKey = (props) => {
@@ -20,12 +22,12 @@ return (
     <Card.Header className="justify-content-center"><FontAwesomeIcon icon={ faKey} /> { props.element.title }</Card.Header>
     <Card.Body>
         <Card.Title style={{textAlign: "center"}}>
-          <Button variant="light" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
+          <Button variant="outline-dark" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
           <PassWrapper>
             { showLink? "**********" : props.element.description }
 
           </PassWrapper>
-          <Button variant="link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>
+          <Button variant="outline-link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>
               <FontAwesomeIcon icon={ faCopy } />
           </Button>
           </Card.Title>

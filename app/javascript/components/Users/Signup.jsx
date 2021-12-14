@@ -116,6 +116,10 @@ function Signup (props) {
                             handleSubmit={handleSubmit}
                             loggedIn={loggedIn}/>}
                     </Col>
+                    <Row style={{margin: "10px 3px", textAlign: "center"}}>
+                        <hr />
+                        <span>Do you have an account? <Link to={"/web/login"}>Sign in.</Link></span>
+                    </Row>
                 </Card.Body>
             </Card>
             </Container>

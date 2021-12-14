@@ -16,6 +16,7 @@
 - Confirmation messages in cancel new password and delete password.
 - Lock screen with pin.
 - If password expires, only show to owner.
+- Search field in dashboard.
 
 ## Things to delevoper environment
 

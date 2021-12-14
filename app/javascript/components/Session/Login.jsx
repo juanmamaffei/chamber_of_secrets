@@ -1,9 +1,15 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap'
+import { Form, Button, Container, Card,Row, Col, Alert } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
-import isLoggedIn from './CheckLogin'
+import styled from 'styled-components'
+import Logo from '../Logo'
 
+const Wrapper = styled.div`
+    background-color: #7c3aed;
+    padding-top: 25vh;
+    height: 100vh
+`
 const LoginForm = (props) => (
     <Form onSubmit={ props.handleSubmit }>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -26,9 +32,13 @@ const LoginForm = (props) => (
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <div className="d-grid gap-2">
+
+        <Button variant="outline-secondary" size="lg" type="submit">
             Enter
         </Button>
+
+        </div>
     </Form>
 )
 
@@ -84,19 +94,25 @@ function Login (props) {
     },[])
    
     return (
-        <Container>
+        <Wrapper>
+            <Container>
             {alerts.show && <Row><Messages variant={alerts.variant} message={alerts.message} /></Row>}
-            <Row>
-                <h2>Login</h2>
-            </Row>
-            <Row>
-                <Col>
-                    {loggedIn? navigate("/web/dashboard") : <LoginForm handleChange={ handleChange }
-                        handleSubmit={handleSubmit}
-                        loggedIn={loggedIn}/>}
-                </Col>
-            </Row>
-        </Container>
+            <Card>
+                
+                <Card.Body>
+                <Card.Title className="text-center">
+                <Logo color="#6c757d"/>
+                </Card.Title>
+                <Row><h2>Login</h2></Row>
+                    <Col>
+                        {loggedIn? navigate("/web/dashboard") : <LoginForm handleChange={ handleChange }
+                            handleSubmit={handleSubmit}
+                            loggedIn={loggedIn}/>}
+                    </Col>
+                </Card.Body>
+            </Card>
+            </Container>
+        </Wrapper>
     )
 }
 

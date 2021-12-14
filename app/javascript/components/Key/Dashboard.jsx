@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row, Button, Alert } from 'react-bootstrap'
+import { Container, Col, Row, Button, Alert, Navbar, Nav } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
 import isLoggedIn from '../Session/CheckLogin'
 import NewKey from './NewKey'
 import OwnKey from './OwnKey'
 import SharedKey from './SharedKey'
+import Logo from '../Logo'
 
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
@@ -83,26 +84,27 @@ const Dashboard = ()=>{
 
 
         return(
+            <div>
+        <Navbar expand="lg">
+            <Container>
+            <Navbar.Brand>
+                <Logo />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+                {loggedIn && <Nav.Link onClick={ destroySession }>Logout</Nav.Link>}
+                {loggedIn && <Nav.Link onClick={ handleNew }>New password</Nav.Link>}
+                
+            </Nav>
+            </Navbar.Collapse>
+            
+            </Container>
+        </Navbar>
             <Container>
                 {alerts.show && <Row><Messages variant={alerts.variant} message={alerts.message} /></Row>}
-        <Row>
-            <Col>Logo</Col>
-            <Col>Session menu
-                { loggedIn &&
-                <button onClick={ destroySession }>Logout</button> }
-            </Col>
-        </Row>
-        <Row>
-                <h2>Own passwords</h2>
-                { ownKeysList }
-        </Row>
-        <Row>
-                <h2>Shared passwords</h2>
-                    { authorizedKeysList }
-        </Row>
-        <Row>
-            <Col className="text-end">
-                <Button variant="success" size="lg" onClick={ handleNew }>New password</Button>
+                <Row>
+            <Col className="d-grid gap-2">
                 <NewKey show={ show }
                     // handleShow={ handleShow }
                     handleClose={ handleClose }
@@ -113,8 +115,18 @@ const Dashboard = ()=>{
                     />
             </Col>
         </Row>
+        <Row>
+                <h3>Own passwords</h3>
+                { ownKeysList }
+        </Row>
+        <Row>
+                <h3>Shared passwords</h3>
+                    { authorizedKeysList }
+        </Row>
+        
 
         </Container>
+        </div>
         )}else
     {
         return( 

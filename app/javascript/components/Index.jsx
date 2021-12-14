@@ -87,7 +87,7 @@ const Index = ()=>(
                 </li>
             </ul>
             <Link to="/web/login">
-                    <Button variant="outline-primary" size="lg" style={{margin: "100px"}}>Create free account</Button>
+                    <Button variant="outline-warning" size="lg" style={{margin: "100px"}}>Create free account</Button>
                 </Link>
         </SafeBro>
         <Features>

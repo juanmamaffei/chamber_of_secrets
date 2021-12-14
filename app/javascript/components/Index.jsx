@@ -86,7 +86,7 @@ const Index = ()=>(
                     You can use CoS on our servers or implement it on yours. <a href="">See how</a>
                 </li>
             </ul>
-            <Link to="/web/login">
+            <Link to="/web/signup">
                     <Button variant="outline-warning" size="lg" style={{margin: "100px"}}>Create free account</Button>
                 </Link>
         </SafeBro>

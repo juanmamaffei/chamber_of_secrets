@@ -17,6 +17,7 @@
 - Lock screen with pin.
 - If password expires, only show to owner.
 - Search field in dashboard.
+- Tutorial when ownpassword.length == 0.
 
 ## Things to delevoper environment
 

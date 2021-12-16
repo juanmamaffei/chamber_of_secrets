@@ -118,6 +118,9 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
+    passenger (6.0.12)
+      rack
+      rake (>= 0.8.1)
     pg (1.2.3)
     popper_js (2.9.3)
     public_suffix (4.0.6)
@@ -230,6 +233,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
+  passenger (>= 5.0.25)
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors

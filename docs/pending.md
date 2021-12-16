@@ -18,6 +18,7 @@
 - If password expires, only show to owner.
 - Search field in dashboard.
 - Tutorial when ownpassword.length == 0.
+- Add categories to passwords. This categories would have password too.
 
 ## Things to delevoper environment
 

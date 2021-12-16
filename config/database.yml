@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: chamber_of_secrets_production
-  username: chamber_of_secrets
+  username: postgres
+  #username: chamber_of_secrets
   password: <%= ENV['CHAMBER_OF_SECRETS_DATABASE_PASSWORD'] %>

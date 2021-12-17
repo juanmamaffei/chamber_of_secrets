@@ -6,31 +6,39 @@ import { faPenSquare, faTrash, faCalendar, faEye, faEyeSlash, faCopy, faKey } fr
 import styled from 'styled-components'
 
 const PassWrapper = styled.span`
-    border: 1px solid black;
-    border-radius: 3px;
     padding: 3px 10px;
     margin-left: 5px;
     padding-bottom: 8px;
 `
-
+const PassField = styled.span`
+    box-shadow: 5px black;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px 5px 5px 5px;
+    button{
+        text-align: right;
+    }
+`
 const OwnKey = (props) => {
     const [showLink, setShowLink] = useState(true)
 
 return (
     <Col xs={ 12 } lg={ 4 } md={ 6 }>
-    <Card className="my-2" key={ props.element.id } border="dark" >
+    <Card className="my-2" key={ props.element.id } >
     <Card.Header className="justify-content-center"><FontAwesomeIcon icon={ faKey} /> { props.element.title }</Card.Header>
     <Card.Body>
-        <Card.Title style={{textAlign: "center"}}>
-          <Button variant="outline-dark" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
-          <PassWrapper>
-            { showLink? "**********" : props.element.description }
+        <Card.Title className="text-center">
+            <PassField>
+            <PassWrapper>
+                { showLink? "*************" : props.element.description }
 
-          </PassWrapper>
+            </PassWrapper>
+            <Button variant="outline-link" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
+            </PassField>
           <Button variant="outline-link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>
               <FontAwesomeIcon icon={ faCopy } />
           </Button>
-          </Card.Title>
+        </Card.Title>
       <Card.Text>
         You shared this pass with { props.element.authorized_users.length } other users.
     </Card.Text>

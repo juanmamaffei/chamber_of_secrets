@@ -6,6 +6,8 @@ import { faKey } from '@fortawesome/free-solid-svg-icons'
 import ReactTypingEffect from 'react-typing-effect';
 import OwnKey from './Key/OwnKey'
 
+import Securityman from './securityman.mp4'
+
 import styled from 'styled-components'
 
 const Header = styled.section`
@@ -57,6 +59,15 @@ const Credits = styled.section`
     background-color: #581c87;
     color: white;
 `
+
+const BackgroundVideo = styled.video`
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    top: 0;
+    filter: opacity(30%);
+    max-height: 100%
+`
 const Index = ()=>(
     <div>
         
@@ -91,7 +102,8 @@ const Index = ()=>(
                 </Link>
         </SafeBro>
         <Features>
-            <Row>
+            
+            <Row style={{zIndex: 2}}>
                 <Col>
                     <h2>Also, you can share the password with other users. They could see that until its expiration date.</h2>
                 </Col>

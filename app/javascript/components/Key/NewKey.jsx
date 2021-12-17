@@ -94,7 +94,6 @@ const NewKey = (props) => {
                 .then(
                     r=> {
                         props.setOwnKeys(props.ownKeys.filter((i)=>{
-                            console.log(i.id !== r.data.key.id);
                             return i.id !== r.data.key.id
                         }));
 

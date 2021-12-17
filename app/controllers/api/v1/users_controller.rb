@@ -1,7 +1,8 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      
+      include CurrentUserConcern
+      before_action :user_signed_in, only: :query
       def create
         begin
           user = User.create!(
@@ -29,7 +30,7 @@ module Api
         if params['user']['byid']
           users = User.find(params['user']['query'])
         else
-          users = User.where('email LIKE ?', "%#{params['user']['query']}%").limit(5)
+          users = User.where('email LIKE ?', "%#{params['user']['query']}%").select('email, id').limit(5)
         end
         if users
           render json: {
@@ -112,7 +113,16 @@ module Api
           }, status: 401
         end
       end
-      
+      private
+      def user_signed_in
+        unless @current_user
+          render status: 401,
+            json: {
+              status: 401,
+              error: "You must sign in."
+            }
+        end
+      end
     end
   end
 end

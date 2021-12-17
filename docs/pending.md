@@ -1,7 +1,6 @@
 # Pending tasks
 
 - Change localhost by environment variables in iniatializers (cors and session).
-- Add validations in User model.
 - Encrypt data of passwords.
 - Strong params everywhere.
 - Keep record users#query in docs.
@@ -10,7 +9,7 @@
 - Password generator.
 - User field (and another fields).
 - Authorized user only can read passwords.
-- Updating passwords doesn't refresh but create new item (only in frontend). When refreshing page, all works fine.
+- Updating passwords doesn't refresh but create new item (only in frontend. When refreshing page, all works fine).
 - Avoid duplicates in authorized users.
 - Confirmation messages in cancel new password and delete password.
 - Lock screen with pin.

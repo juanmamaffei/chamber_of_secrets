@@ -29,9 +29,13 @@ const NewAuthorized = (props) => {
   const handleSelect = (data) => {
     //setSelected(...selected, data.id);
     // In data, we have an array... 0 is ID, 1 is EMAIL
-    console.log(props.authorized)
-    setSelected([...selected,{id:data[0].id,email:data[0].email}]);
-    props.setAuthorized([...props.authorized,data[0].id]);
+    //setSelected([...selected,{id:data[0].id,email:data[0].email}]);
+
+    let sel = [...selected,{id:data[0].id,email:data[0].email}]
+    
+    setSelected([...new Set(sel)])
+    
+    props.setAuthorized([...new Set([...props.authorized,data[0].id])]);
   }
 
   return (<Accordion>

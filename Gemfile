@@ -33,7 +33,9 @@ gem "font-awesome-rails"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
+group :production do
+  gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"  
+end
 
 
 group :development, :test do

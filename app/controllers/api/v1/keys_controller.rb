@@ -3,7 +3,11 @@ module Api
   module V1
 
     class KeysController < ApplicationController
+      include CurrentUserConcern
+      before_action :user_signed_in
+
       def dashboard
+        puts "This is dasboard, bitch."
         # Find my keys
         own_keys = User.find(session[:user_id]).keys
         
@@ -26,9 +30,11 @@ module Api
             authorized_keys: authorized_keys
           }
         else
-          render json: { 
-            status: 500
-          }
+          render status: 500,
+            json: { 
+              status: 500,
+              message: error.details
+            }
         end
       end
 
@@ -46,10 +52,11 @@ module Api
             key: key
           }
         else
-          render json: {
-            status: 500,
-            error: error.details
-          }
+          render status: 500,
+            json: { 
+              status: 500,
+              message: error.details
+            }
         end
       end
 
@@ -68,10 +75,11 @@ module Api
             key: key
           }
         else
-          render json: {
-            status: 500,
-            error: error.details
-          }
+          render status: 500,
+            json: { 
+              status: 500,
+              message: error.details
+            }
         end
       end
 
@@ -90,6 +98,17 @@ module Api
         end
         
       end
+      private
+      def user_signed_in
+        unless @current_user
+          render status: 401,
+            json: {
+              status: 401,
+              error: "You must sign in."
+            }
+        end
+      end
+      
     end
 
   end

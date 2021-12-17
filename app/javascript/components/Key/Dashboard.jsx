@@ -7,7 +7,13 @@ import NewKey from './NewKey'
 import OwnKey from './OwnKey'
 import SharedKey from './SharedKey'
 import Logo from '../Logo'
+import styled from 'styled-components'
 
+
+const SuperBody = styled.div`
+    background-color: #f3f4f6;
+    
+`
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
     const [authorizedKeys, setAuthorizedKeys] = useState([]);
@@ -89,23 +95,23 @@ const Dashboard = ()=>{
 
 
         return(
-            <div>
-        <Navbar expand="lg">
-            <Container>
-            <Navbar.Brand>
-                <Logo />
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-                {loggedIn && <Nav.Link onClick={ destroySession }>Logout</Nav.Link>}
-                {loggedIn && <Nav.Link onClick={ handleNew }>New password</Nav.Link>}
+            <SuperBody>
+            <Navbar expand="lg" bg="light">
+                <Container>
+                <Navbar.Brand>
+                    <Logo color="#7c3aed"/>
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
+                    {loggedIn && <Nav.Link onClick={ destroySession }>Logout</Nav.Link>}
+                    {loggedIn && <Nav.Link onClick={ handleNew }>New password</Nav.Link>}
+                    
+                </Nav>
+                </Navbar.Collapse>
                 
-            </Nav>
-            </Navbar.Collapse>
-            
-            </Container>
-        </Navbar>
+                </Container>
+            </Navbar>
             <Container>
                 {alerts.show && <Row><Messages variant={alerts.variant} message={alerts.message} /></Row>}
                 <Row>
@@ -121,7 +127,7 @@ const Dashboard = ()=>{
             </Col>
         </Row>
         <Row>
-                <h3>Own passwords</h3>
+                <h3>My passwords</h3>
                 { ownKeysList }
         </Row>
         <Row>
@@ -131,7 +137,7 @@ const Dashboard = ()=>{
         
 
         </Container>
-        </div>
+        </SuperBody>
         )}else
     {
         return( 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Card, Row, Col, Tooltip } from 'react-bootstrap'
+import { Button, Card, Row, Col, Tooltip, Form } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare, faTrash, faCalendar, faEye, faEyeSlash, faCopy, faKey } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,8 +11,9 @@ const PassWrapper = styled.span`
     padding-bottom: 8px;
 `
 const PassField = styled.span`
-    box-shadow: 5px black;
-    border: 1px solid black;
+    box-shadow: 5px #e7e5e4;
+    background-color: #f3f4f6;
+    border: 1px solid #f3f4f6;
     border-radius: 3px;
     padding: 5px 5px 5px 5px;
     button{

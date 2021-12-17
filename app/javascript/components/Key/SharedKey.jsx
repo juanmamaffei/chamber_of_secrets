@@ -4,12 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenSquare, faTrash, faCalendar, faEye, faEyeSlash, faCopy, faKey } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
+
 const PassWrapper = styled.span`
-    border: 1px solid black;
-    border-radius: 3px;
     padding: 3px 10px;
     margin-left: 5px;
     padding-bottom: 8px;
+`
+const PassField = styled.span`
+    box-shadow: 5px #e7e5e4;
+    background-color: #f3f4f6;
+    border: 1px solid #f3f4f6;
+    border-radius: 3px;
+    padding: 5px 5px 5px 5px;
+    button{
+        text-align: right;
+    }
 `
 
 const SharedKey = (props) => {
@@ -21,11 +30,13 @@ return (
     <Card.Header className="justify-content-center"><FontAwesomeIcon icon={ faKey} /> { props.element.title }</Card.Header>
     <Card.Body>
       <Card.Title style={{textAlign: "center"}}>
-          <Button variant="outline-dark" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
+      <PassField>
           <PassWrapper>
-            { showLink? "**********" : props.element.description }
+            { showLink? "**************" : props.element.description }
           </PassWrapper>
-          <Button variant="outline-link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>
+          <Button variant="outline-link" onClick={()=> { setShowLink((showLink? false : true))}}>{ showLink? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }</Button>
+          </PassField>
+          <Button variant="link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>
               <FontAwesomeIcon icon={ faCopy } />
           </Button>
           </Card.Title>
@@ -51,3 +62,4 @@ return (
 }
 
 export default SharedKey
+

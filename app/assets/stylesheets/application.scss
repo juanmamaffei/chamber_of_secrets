@@ -53,3 +53,18 @@ body{
     font-family: 'Rokkitt', serif;
 
 }
+
+.card{
+    font-family: sans-serif;
+    .card-header{
+        font-size: larger;
+        background-color: white;
+        border: 0px;        
+    }
+    .card-body{
+        
+    }
+    .card-footer{
+        background-color: #fafafa;
+    }
+}

@@ -77,17 +77,10 @@ function Signup (props) {
                     "password": credentials.password,
                     "password_confirmation" : credentials.password_confirmation
                 }
-            }).then((response) => {
-                if (response.status=="200") {
-                    navigate("/web/dashboard")
-                    //return(<Redirect to='/web/dashboard' />)
-                } else {
-                    console.log(response)
-                    setAlerts({ variant: "warning", message: response.data.message, show: true })
-
-                }
-            }).catch(response => {
-                setAlerts({ variant: "danger", message: response, show: true })
+            })
+            .then(() => { navigate("/web/dashboard") })
+            .catch((response) => {
+                setAlerts({ variant: "danger", message: response.response.data.errors, show: true })
             })
 
     }

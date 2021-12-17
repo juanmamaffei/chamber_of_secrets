@@ -80,7 +80,7 @@ function Login (props) {
 
                 }
             }).catch(response => {
-                setAlerts({ variant: "danger", message: response, show: true })
+                setAlerts({ variant: "danger", message: response.response.data.message, show: true })
             })
 
     }

@@ -15,7 +15,7 @@ module Api
             user: user
           }
         else
-          render json: { status: 401, message: "User or password incorrect." }
+          render json: { status: 401, message: "User or password incorrect." }, status: 401
         end
 
       end

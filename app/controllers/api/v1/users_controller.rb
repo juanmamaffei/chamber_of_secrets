@@ -1,13 +1,16 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      
       def create
-        user = User.create!(
-          email: params['user']['email'],
-          password: params['user']['password'],
-          password_confirmation: params['user']['password_confirmation']
-        )
-
+        begin
+          user = User.create!(
+            email: params['user']['email'],
+            password: params['user']['password'],
+            password_confirmation: params['user']['password_confirmation']
+          )
+        
+        
         if user
           session[:user_id] = user.id
           render json: {
@@ -15,7 +18,10 @@ module Api
             user: user
           }
         else
-          render json: { status: 500, details: error.details }    
+          render status: 500, json: { status: 500, details: "Check the fields." }  
+        end
+        rescue ActiveRecord::RecordInvalid => error
+          render :status => 500, :json => {:errors => error }
         end
       end
       
@@ -31,7 +37,7 @@ module Api
             users: users
           }
         else
-          render json: { status: 500, details: error.details }
+          render json: { status: 500, details: error.details }, status: 500 
         end
       end
       
@@ -48,7 +54,7 @@ module Api
             user: user
           }
         else
-          render json: { status: 500, details: error.details }
+          render json: { status: 500, details: error.details }, status: 500 
         end
       end
       
@@ -65,7 +71,7 @@ module Api
           render json: {
             status: 500,
             details: error.details
-          }
+          }, status: 500 
         end
       end
       
@@ -78,13 +84,13 @@ module Api
           if action
             render json: { status: 200, message: "Now, #{new_admin.full_name} is an admin."}
           else
-            render json: { status: 500, message: error.details }
+            render json: { status: 500, message: error.details }, status: 500 
           end
         else
           render json: { 
             status: 401,
             message: "You don't have permission to assign an admin."
-          }
+          }, status: 401 
         end
       end
       
@@ -102,8 +108,8 @@ module Api
         else
           render json: { 
             status: 401,
-            message: "You don't have permission to assign an admin."
-          }
+            message: "You don't have permission to assign authorized users."
+          }, status: 401
         end
       end
       

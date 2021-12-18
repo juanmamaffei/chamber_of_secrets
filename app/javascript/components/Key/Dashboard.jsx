@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Container, Col, Row, Button, Alert, Navbar, Nav } from 'react-bootstrap'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
-import isLoggedIn from '../Session/CheckLogin'
 import NewKey from './NewKey'
 import OwnKey from './OwnKey'
 import SharedKey from './SharedKey'
@@ -12,8 +11,10 @@ import styled from 'styled-components'
 
 const SuperBody = styled.div`
     background-color: #f3f4f6;
-    
+    min-height: 100vh;
 `
+
+
 const Dashboard = ()=>{
     const [ownKeys, setOwnKeys] = useState([]);
     const [authorizedKeys, setAuthorizedKeys] = useState([]);

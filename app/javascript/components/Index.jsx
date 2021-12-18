@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey } from '@fortawesome/free-solid-svg-icons'
 import ReactTypingEffect from 'react-typing-effect';
 import OwnKey from './Key/OwnKey'
-
+import GuyVault from 'images/undraw_vault_re_s4my.svg'
+import Party from 'images/undraw_partying_re_at7f.svg'
 import Securityman from './securityman.mp4'
 
 import styled from 'styled-components'
@@ -68,6 +69,14 @@ const BackgroundVideo = styled.video`
     filter: opacity(30%);
     max-height: 100%
 `
+
+const ImageFormat = styled.div`
+    text-align:center;
+    padding: 50px 0 50px 0; 
+    img{
+        max-width: 100%;
+    }
+`
 const Index = ()=>(
     <div>
         
@@ -97,6 +106,9 @@ const Index = ()=>(
                     You can use CoS on our servers or implement it on yours. <a href="">See how</a>
                 </li>
             </ul>
+            <ImageFormat>
+                <img src={ GuyVault } height="220px" />
+            </ImageFormat>
             <Link to="/web/signup">
                     <Button variant="outline-warning" size="lg" style={{margin: "100px"}}>Create free account</Button>
                 </Link>
@@ -107,7 +119,11 @@ const Index = ()=>(
                 <Col>
                     <h2>Also, you can share the password with other users. They could see that until its expiration date.</h2>
                 </Col>
-                    <OwnKey element={{id: 1, description: "HiddenPass05##", title: "Example pass", authorized_users: [1,2,3,4,5,6,7,8,9], created_at: "2021/12/13"}} />
+                <Col>
+                    <ImageFormat>
+                        <img src={ Party } height="120px"></img>
+                    </ImageFormat>
+                </Col>
             </Row>
         </Features>
         <Download>

@@ -87,6 +87,8 @@ const SuperCard = styled.div`
     }
 `
 
+
+
 const OwnKey = (props) => {
     const [showLink, setShowLink] = useState(true)
 
@@ -128,9 +130,9 @@ return (
         </div>
         <div className="buttons">
             <div>
-                <Button variant="outline-primary" onClick={ () => { props.setElementForEdit(props.element); props.handleEdit(props.element)}} > <FontAwesomeIcon icon={faPenSquare} /> Edit</Button></div>
-            <div>
-                <Button variant="outline-danger" onClick={ () => props.handleDelete(props.element.id) }
+                <Button variant="outline-primary" onClick={ () => { props.setElementForEdit(props.element); props.handleEdit(props.element)}} size="sm"> <FontAwesomeIcon icon={faPenSquare} size="lg" /> Edit</Button></div>
+            <div >
+                <Button variant="outline-danger" className="btn-block" onClick={ () => props.handleDelete(props.element.id) } size="sm"
                 ><FontAwesomeIcon icon={ faTrash } /> Delete</Button>
             </div>
 

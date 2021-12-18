@@ -15,20 +15,36 @@ const PassWrapper = styled.div`
     padding: 3px;
     margin-left: 0px;
     padding-bottom: 8px;
+    width:100%;
     `
 const PassField = styled.div`
     display:flex;
+    width:90%;
+    
+    //max-width:90%;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
     box-shadow: 5px #e7e5e4;
     flex-grow: 100;
+    
     background-color: #f3f4f6;
     border: 1px solid #f3f4f6;
     border-radius: 3px;
     padding: 5px 5px 5px 5px;
     button{
         text-align: right;
+    }
+    //background: -webkit-linear-gradient(right, rgba(0,0,0,0) 15%, rgba(0,0,0,1));
+    .passwordText{
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(222,0,255,1) 100%, rgba(255,0,0,0) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        
     }
 `
 
@@ -83,11 +99,15 @@ return (
         <PassWrapper>
             
             <PassField>
+                <div className="passwordText">
                 { showLink? "*************" : props.element.description }
+                </div>
+                <div>
                 <Button variant="outline-link" 
                     onClick={()=> { setShowLink((showLink? false : true))}}>
                     { showLink ? <FontAwesomeIcon icon={ faEye } /> : <FontAwesomeIcon icon={ faEyeSlash } /> }
                 </Button>
+                </div>
             </PassField>
             <div>
             <Button variant="link" onClick={() => { navigator.clipboard.writeText(props.element.description) }}>

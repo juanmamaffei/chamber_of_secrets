@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_07_165822) do
+ActiveRecord::Schema.define(version: 2022_02_08_212659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_12_07_165822) do
     t.date "expiration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.text "additional_info"
     t.index ["user_id"], name: "index_keys_on_user_id"
   end
 

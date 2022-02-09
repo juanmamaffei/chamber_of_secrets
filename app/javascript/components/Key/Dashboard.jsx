@@ -57,7 +57,6 @@ const Dashboard = ()=>{
         setShowDelModal(true);
     }
     const handleDelete = (e) => {
-        console.log(e)
         axios.delete(`/api/v1/keys/${e}`)
             .then(
                 r => {

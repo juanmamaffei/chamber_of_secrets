@@ -44,7 +44,9 @@ module Api
           description: params[:key][:description],
           user: User.find(session[:user_id]),
           authorized_users: params[:key][:authorized_users],
-          expiration: params[:key][:expiration]
+          expiration: params[:key][:expiration],
+          username: params[:key][:username],
+          additional_info: params[:key][:additional_info]
         )
         if key
           render json: {
@@ -67,7 +69,9 @@ module Api
           description: params[:key][:description],
           user: User.find(session[:user_id]),
           authorized_users: params[:key][:authorized_users],
-          expiration: params[:key][:expiration]
+          expiration: params[:key][:expiration],
+          username: params[:key][:username],
+          additional_info: params[:key][:additional_info]
         )
         if action
           render json: {

@@ -10,7 +10,7 @@ const NewKeyForm = (props) => {
     if(props.element.description){
         element = props.element
         useEffect(() => {
-            props.setFields({title: element.title, description: element.description, expiration: element.expiration});
+            props.setFields({title: element.title, description: element.description, expiration: element.expiration, username: element.username, additional_info: element.additional_info});
 
             props.setAuthorized(element.authorized_users)
             // element.authorized_users contains id users... is necessary obtain data from this ids:
@@ -34,7 +34,7 @@ const NewKeyForm = (props) => {
         }, [])
         
     } else {
-        element = {title: '', description: '', expiration: '', authorized_users: []}
+        element = {title: '', description: '', expiration: '', authorized_users: [], username: '', additional_info: ''}
     }
     return (
       <Form onSubmit={ props.handleSubmit }>
@@ -44,12 +44,22 @@ const NewKeyForm = (props) => {
             <Form.Text className="text-muted">For example: Wifi key of Office 2.</Form.Text>
         </Form.Group>
         <Form.Group>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="Enter username (if your key has one)" onChange={ props.handleChange } name='username' defaultValue={ element.username } autoComplete="off" />
+            <Form.Text className="text-muted">For example: Wifi key of Office 2.</Form.Text>
+        </Form.Group>
+        <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Enter password" onChange={ props.handleChange } name='description' defaultValue={ element.description } autoComplete="new-password" />
         </Form.Group>
         <Form.Group>
             <Form.Label>Expiration</Form.Label>
             <Form.Control name="expiration" type="date" defaultValue={ element.expiration } placeholder="Your pass expires..." onChange={ props.handleChange } ></Form.Control>
+        </Form.Group>
+        <Form.Group>
+            <Form.Label>Additional data</Form.Label>
+            <Form.Control type="text" placeholder="Optional additional data" onChange={ props.handleChange } name='additional_info' defaultValue={ element.additional_info } autoComplete="off" />
+            <Form.Text className="text-muted">For example: Wifi key of Office 2.</Form.Text>
         </Form.Group>
         <Form.Group>
             <Form.Label>Share pass with...</Form.Label>
@@ -67,7 +77,7 @@ const NewKeyForm = (props) => {
 
 const NewKey = (props) => {
     // Fields: title, description, expiration
-    const [fields, setFields] = useState({title: "", description: "", expiration: ""});
+    const [fields, setFields] = useState({title: "", description: "", expiration: "", username: "", additional_info: ""});
     // Array for authorized users
     const [authorized, setAuthorized] = useState([]);
 
@@ -89,7 +99,9 @@ const NewKey = (props) => {
                 title: fields.title,
                 description: fields.description,
                 expiration: fields.expiration,
-                authorized_users: authorized
+                authorized_users: authorized,
+                username: fields.username,
+                additional_info: fields.additional_info
             })
                 .then(
                     r=> {

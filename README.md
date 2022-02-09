@@ -36,8 +36,9 @@ Chamber of Secrets (CoS) is a simple, collaborative and safe password manager. Y
 10) Install Passenger.
     1) [Guide for Debian 9](https://www.phusionpassenger.com/library/install/nginx/install/oss/stretch/).
     2) _Alternative_: install Passenger gem (`gem install passenger`) and then  `passenger-install-nginx-module`.
-11) Precompile assets (`rails precompile:assets RAILS_ENV=production`).
-12) Enjoy it.
+11) Configure credentials for database and encryption (`rails db:encryption:init` and add the output to `rails credentials:edit`)
+12) Precompile assets (`rails assets:precompile RAILS_ENV=production`).
+13) Enjoy it.
 
 server {
             listen 80;
@@ -59,3 +60,4 @@ server {
 In NGINX.CONF
         include /etc/nginx/passenger.conf;
 
+ rails c --environment prod

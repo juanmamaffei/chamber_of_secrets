@@ -47,7 +47,13 @@ const PassField = styled.div`
         
     }
 `
-
+const AdditionalWrapper = styled.div`
+    width: 100%;
+    background-color: #f3f4f6;
+    border: 1px solid #f3f4f6;
+    border-radius: 3px;
+    padding: 5px;
+`
 const SuperCard = styled.div`
     background-color: white;
     border-radius: 15px;
@@ -101,6 +107,22 @@ return (
         <PassWrapper>
             
             <PassField>
+                
+                <div className="passwordText">
+                { props.element.username }
+                </div>
+                <div>
+                
+                </div>
+            </PassField>
+            <div>
+            <Button variant="link" onClick={() => { navigator.clipboard.writeText(props.element.username) }}>
+              <FontAwesomeIcon icon={ faCopy } /></Button>
+            </div>
+        </PassWrapper>
+        <PassWrapper>
+            
+            <PassField>
                 <div className="passwordText">
                 { showLink? "*************" : props.element.description }
                 </div>
@@ -116,6 +138,9 @@ return (
               <FontAwesomeIcon icon={ faCopy } /></Button>
             </div>
         </PassWrapper>
+        <AdditionalWrapper>
+            { props.element.additional_info }
+        </AdditionalWrapper>
         <div className="shaExpWrapper">
             <div className="shared">
                 <div className="subtitle">SHARED WITH</div>

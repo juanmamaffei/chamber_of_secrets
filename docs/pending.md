@@ -17,6 +17,7 @@
 - Search field in dashboard.
 - Tutorial when ownpassword.length == 0.
 - Add categories to passwords. This categories would have password too.
+- Prevent N+1 queries problem.
 
 ## Things to delevoper environment
 
